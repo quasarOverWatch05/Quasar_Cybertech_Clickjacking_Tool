@@ -151,9 +151,9 @@ def analyze(url, output_format):
             save_output(result, output_format)
 
         if secure:
-            log(f"\n✅ {domain} appears secure against Clickjacking.\n", "green")
+            log(f"\n✅ {domain} is secure against Clickjacking.\n", "green")
         else:
-            log(f"\n❌ {domain} may be vulnerable to Clickjacking.\n", "red")
+            log(f"\n❌ {domain} is vulnerable to Clickjacking.\n", "red")
 
     except requests.RequestException as e:
         log(f"[ERROR] Failed to fetch page: {e}", "red")
