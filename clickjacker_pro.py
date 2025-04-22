@@ -135,7 +135,10 @@ def analyze(url, output_format):
 
         secure, headers_data = check_headers(response.headers)
         iframe_data = inspect_iframes(soup)
-        screenshot_path = take_screenshot(url, domain)
+
+        screenshot_path = None
+        if not secure:
+            screenshot_path = take_screenshot(url, domain)
 
         result = {
             "url": url,
@@ -157,6 +160,7 @@ def analyze(url, output_format):
 
     except requests.RequestException as e:
         log(f"[ERROR] Failed to fetch page: {e}", "red")
+
 
 def batch_analyze(file_path, output_format):
     if not os.path.isfile(file_path):
