@@ -25,9 +25,40 @@ A powerful, developer-friendly Python-based CLI utility that scans websites for 
 - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
 - [GeckoDriver](https://github.com/mozilla/geckodriver/releases) in your system PATH
 
+### Clone The Repository
+
+```bash
+git clone "https://github.com/quasarOverWatch05/quasar-clickjacker-cli"
+cd quasar-clickjacker-cli
+
+```
+
+### Create a virtual environment and activate it
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+
+```
+
 ### Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
+
+```
+### Run the script 
+
+For single URL
+
+```bash
+python3 clickjacker_pro.py -u https://evil.com/
+
+```
+For multiple URLs(use the url.txt file provided in the repository)
+⚠️ Each URL should be on a new line for the script to function properly
+
+```bash
+python3 clickjacker_pro.py -l url.txt
 
 ```
