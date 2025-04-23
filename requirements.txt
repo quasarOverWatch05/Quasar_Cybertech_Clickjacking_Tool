@@ -1,7 +1,12 @@
-requests
+aiohttp
+asyncio
 beautifulsoup4
-selenium
-validators
-tldextract
 colorama
+cryptography
+dnspython
+playwright
+pydantic
 rich
+tldextract
+validators
+pyjsparser
