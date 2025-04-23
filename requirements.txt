@@ -1,12 +1,4 @@
-aiohttp
-asyncio
-beautifulsoup4
+requests
 colorama
-cryptography
-dnspython
-playwright
-pydantic
 rich
-tldextract
-validators
-pyjsparser
+playwright

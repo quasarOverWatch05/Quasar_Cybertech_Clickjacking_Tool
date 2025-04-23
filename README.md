@@ -12,7 +12,7 @@ A powerful, developer-friendly Python-based CLI utility that scans websites for 
 - ✅ Parses and inspects `<iframe>` elements for suspicious embeds
 - 📸 Captures **headless screenshots** using Firefox + Selenium
 - 🧪 Supports **single or batch scanning** (via `--list urls.txt`)
-- 📝 Outputs results in **JSON or CSV**
+- 📝 Outputs results in **HTML & Screenshot**
 - 💬 Beautiful CLI interface with colorized and structured results
 
 ---
@@ -45,6 +45,7 @@ source venv/bin/activate
 
 ```bash
 pip3 install -r requirements.txt
+python -m playwright install firefox
 
 ```
 ### Run the script 

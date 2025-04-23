@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-Clickjacking Detection & Exploitation Tool
-Checks websites for clickjacking vulnerabilities and generates proof-of-concept HTML files
-"""
-
 import os
 import sys
 import time
@@ -79,60 +73,134 @@ def generate_poc_html(url, output_dir):
     
     html_content = f"""
     <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Clickjacking PoC for {domain}</title>
-        <style>
-            body {{
-                margin: 0;
-                padding: 0;
-                background-color: #f0f0f0;
-                font-family: Arial, sans-serif;
-            }}
-            .container {{
-                width: 100%;
-                height: 100vh;
-                position: relative;
-            }}
-            .target-website {{
-                width: 100%;
-                height: 100%;
-                border: none;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 1;
-                opacity: 0.8;
-            }}
-            .overlay {{
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 2;
-                background-color: rgba(255, 0, 0, 0.3);
-                padding: 20px;
-                border-radius: 5px;
-                pointer-events: none;
-            }}
-            h1 {{
-                color: #333;
-                text-align: center;
-                padding: 10px;
-                background-color: #fff;
-                border-radius: 5px;
-                margin-top: 0;
-            }}
-        </style>
-    </head>
-    <body>
-        <h1>Clickjacking Proof of Concept for {domain}</h1>
-        <div class="container">
-            <div class="overlay">Clickable Area (Demonstration)</div>
-            <iframe class="target-website" src="{url}"></iframe>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clickjacking Test</title>
+    <style>
+        body {{
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #3d0b1c;
+            color: #f3d5b5;
+        }}
+        .header {{
+            padding: 20px;
+            text-align: center;
+        }}
+        .header h1 {{
+            font-size: 2em;
+        }}
+        .container {{
+            max-width: 1000px;
+            margin: auto;
+            background: #500c20;
+            padding: 20px;
+            border-radius: 10px;
+        }}
+        .url-box {{
+            margin-bottom: 20px;
+            display: flex;
+        }}
+        .url-box input {{
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }}
+        .url-box button {{
+            background-color: #2979ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }}
+        .info {{
+            background-color: #fff0f0;
+            padding: 15px;
+            border-radius: 10px;
+            color: #000;
+            margin-bottom: 20px;
+        }}
+        .alert {{
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }}
+        .iframe-wrapper {{
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border: 2px solid #900;
+            border-radius: 10px;
+            overflow: hidden;
+        }}
+        iframe {{
+            width: 100%;
+            height: 100%;
+            border: none;
+            opacity: 0.95;
+        }}
+        .overlay {{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 0, 0.4);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 10;
+            pointer-events: none;
+            display: none;
+        }}
+        .toggle-btn {{
+            margin: 10px auto 20px;
+            display: block;
+            padding: 10px 20px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Clickjacking Test</h1>
+    </div>
+    <div class="container">
+        <div class="url-box">
+            <input type="text" value="{url}" readonly>
+            <button>Test</button>
         </div>
-    </body>
-    </html>
+        <div class="info">
+            <strong>Site:</strong> {url}<br>
+            <strong>IP Address:</strong> Auto-Detected<br>
+            <strong>Time:</strong> Auto-Generated<br>
+            <strong>Missing Headers:</strong> <span style="color: red;">X-Frame-Options, CSP frame-ancestors</span>
+        </div>
+        <div class="alert">Site is vulnerable to Clickjacking</div>
+        <button class="toggle-btn" onclick="toggleOverlay()">Toggle Overlay</button>
+        <div class="iframe-wrapper">
+            <div class="overlay" id="overlay">Click Me!</div>
+            <iframe src="{url}"></iframe>
+        </div>
+    </div>
+    <script>
+        function toggleOverlay() {{
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = (overlay.style.display === 'block') ? 'none' : 'block';
+        }}
+    </script>
+</body>
+</html>
     """
     
     with open(filename, 'w') as f:
