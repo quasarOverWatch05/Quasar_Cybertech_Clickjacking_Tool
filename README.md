@@ -1,5 +1,8 @@
 # 🔐 Quasar Clickjacker CLI – Advanced Clickjacking Detection Tool
 
+<div align="center">
+<img src="https://quasarcybertech.com/wp-content/uploads/2024/06/fulllogo_transparent_nobuffer.png" alt="Quasar CyberTech Logo" width="400"/>
+</div>
 <img src="https://quasarcybertech.com/wp-content/uploads/2024/06/fulllogo_transparent_nobuffer.png" alt="Quasar CyberTech Logo" width="400"/>
 
 A powerful, developer-friendly Python-based CLI utility that scans websites for potential **Clickjacking vulnerabilities** using security headers, iframe analysis, screenshots, and batch processing.
