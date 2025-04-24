@@ -77,6 +77,7 @@ def generate_poc_html(url, output_dir):
 <head>
     <meta charset="UTF-8">
     <title>Clickjacking Test</title>
+    <link rel="icon" href="/Quasar.png">
     <style>
         body {{
             margin: 0;

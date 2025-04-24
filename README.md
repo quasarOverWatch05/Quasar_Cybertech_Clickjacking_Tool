@@ -65,6 +65,6 @@ For multiple URLs(use the url.txt file provided in the repository)
 ⚠️ Each URL should be on a new line for the script to function properly
 
 ```bash
-python3 clickjacker_pro.py -l url.txt
+python3 clickjacker_pro.py -f url.txt
 
 ```
