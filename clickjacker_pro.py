@@ -20,22 +20,6 @@ init(autoreset=True)
 # Initialize rich console
 console = Console()
 
-def install_dependencies():
-    """Automatically install dependencies from requirements.txt if needed"""
-    console.print("[bold yellow]Checking and installing dependencies if needed...[/bold yellow]")
-    requirements_file = Path("requirements.txt")
-
-    if not requirements_file.exists():
-        console.print("[bold red]requirements.txt not found.[/bold red]")
-        return
-
-    try:
-        subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(requirements_file)], check=True)
-        console.print("[bold green]Dependencies are installed or already satisfied.[/bold green]")
-    except subprocess.CalledProcessError as e:
-        console.print(f"[bold red]Dependency installation failed: {e}[/bold red]")
-        sys.exit(1)
-
 def create_directory(directory):
     """Create directory if it doesn't exist"""
     if not os.path.exists(directory):
@@ -307,7 +291,6 @@ def process_url(url, output_dir):
 
 def main():
     """Main function"""
-    install_dependencies()
     console.print(Panel.fit(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
         "[yellow]Detects clickjacking vulnerabilities and generates PoC[/yellow]",
@@ -365,7 +348,6 @@ def main():
 
 def interactive_mode():
     """Interactive mode for the tool"""
-    install_dependencies()
     console.print(Panel.fit(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
         "[yellow]Detects clickjacking vulnerabilities and generates PoC[/yellow]",
