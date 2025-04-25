@@ -3,14 +3,13 @@ import sys
 import time
 import argparse
 import requests
-import subprocess
-from pathlib import Path
 from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor
 from playwright.sync_api import sync_playwright
 from colorama import init, Fore, Style
 from rich.console import Console
 from rich.panel import Panel
+from rich.box import ROUNDED 
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
@@ -255,7 +254,8 @@ def process_url(url, output_dir):
         console.print(Panel(
             f"[bold red]Error testing {url}: {result.get('error', 'Unknown error')}",
             title="Error",
-            border_style="red"
+            border_style="red",
+            box="ROUNDED"
         ))
         return
     
@@ -264,9 +264,11 @@ def process_url(url, output_dir):
             f"[bold green]URL: {url}\n"
             f"[bold red]Status: VULNERABLE\n"
             f"[bold yellow]X-Frame-Options: {result['x_frame_options']}\n"
-            f"[bold yellow]CSP Frame-Ancestors: {result['csp_frame_ancestors']}",
+            f"[bold yellow]CSP Frame-Ancestors: {result['csp_frame_ancestors']}\n"
+            f"[bold cyan]Clickjacking Mitigation Guide: https://quasarclickjacker.netlify.app/defensecj.html",
             title="Clickjacking Vulnerability Found",
-            border_style="red"
+            border_style="red",
+            box=ROUNDED
         ))
         
         # Generate PoC HTML file
@@ -293,8 +295,8 @@ def main():
     """Main function"""
     console.print(Panel.fit(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
-        "[yellow]Detects clickjacking vulnerabilities and generates PoC[/yellow]",
-        border_style="blue"
+        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]",
+        border_style="magenta"
     ))
     
     parser = argparse.ArgumentParser(description="Clickjacking Detection & Exploitation Tool")
@@ -350,8 +352,8 @@ def interactive_mode():
     """Interactive mode for the tool"""
     console.print(Panel.fit(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
-        "[yellow]Detects clickjacking vulnerabilities and generates PoC[/yellow]",
-        border_style="blue"
+        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]",
+        border_style="magenta"
     ))
     
     output_dir = 'output'
