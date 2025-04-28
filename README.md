@@ -6,7 +6,7 @@
 
 A powerful, developer-friendly Python-based CLI utility that scans websites for potential **Clickjacking vulnerabilities** using security headers, iframe analysis, screenshots, and batch processing.
 
-> ⚡ Developed and maintained by [Quasar CyberTech Research Team]
+> ⚡ Developed and maintained by [Quasar CyberTech Research Team](https://quasarcybertech.com/)
 
 ---
 
