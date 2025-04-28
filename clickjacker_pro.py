@@ -210,33 +210,6 @@ def generate_poc_html(url, output_dir):
     
     return filename
 
-def take_screenshot(url, html_file, output_dir):
-    """Take screenshot of the vulnerable page with iframe using Playwright and Firefox"""
-    try:
-        domain = urlparse(url).netloc
-        screenshot_path = f"{output_dir}/{domain}_screenshot.png"
-        
-        with sync_playwright() as p:
-            # Launch Firefox browser
-            browser = p.firefox.launch()
-            page = browser.new_page(viewport={"width": 1366, "height": 768})
-            
-            # Load the HTML file
-            file_url = f"file://{os.path.abspath(html_file)}"
-            page.goto(file_url)
-            
-            # Wait for iframe to load
-            page.wait_for_timeout(3000)
-            
-            # Take screenshot
-            page.screenshot(path=screenshot_path)
-            browser.close()
-        
-        return screenshot_path
-    except Exception as e:
-        console.print(f"[bold red]Error taking screenshot: {str(e)}")
-        return None
-
 def process_url(url, output_dir):
     """Process a single URL"""
     url = check_url_format(url)
@@ -274,13 +247,6 @@ def process_url(url, output_dir):
         # Generate PoC HTML file
         html_file = generate_poc_html(url, output_dir)
         console.print(f"[bold green]PoC HTML file generated: {html_file}")
-        
-        # Take screenshot
-        with console.status("[bold yellow]Taking screenshot..."):
-            screenshot = take_screenshot(url, html_file, output_dir)
-        
-        if screenshot:
-            console.print(f"[bold green]Screenshot saved: {screenshot}")
     else:
         console.print(Panel(
             f"[bold green]URL: {url}\n"
@@ -293,19 +259,22 @@ def process_url(url, output_dir):
 
 def main():
     """Main function"""
+    console.print(Panel(
+        "[bold magenta]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
+        "[bold magenta]     |Q|u|a|s|a|r| |C|y|b|e|r|T|e|c|h|\n"
+        "[bold magenta]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
+    ))
     console.print(Panel.fit(
-        "[bold magenta]+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
-        "[bold magenta]|Q|u|a|s|a|r| |C|y|b|e|r|T|e|c|h|\n"
-        "[bold magenta]+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
         "[red]Developed and Maintained by Quasar CyberTech Research Team[/red]",
+        border_style="magenta"
     ))
     
     parser = argparse.ArgumentParser(description="Clickjacking Detection & Exploitation Tool")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-u', '--url', help='Single URL to test')
-    group.add_argument('-f', '--file', help='File containing URLs to test (one per line)')
-    parser.add_argument('-o', '--output', default='output', help='Output directory for results (default: output)')
+    group.add_argument('-u', '--url', help='Test a single URL for clickjacking vulnerability')
+    group.add_argument('-f', '--file', help='Provide a file with multiple URLs to test (one URL per line)')
+    parser.add_argument('-o', '--output', default='output', help='Directory to save results (default: output)')
     args = parser.parse_args()
     
     # Create output directory
@@ -352,23 +321,28 @@ def main():
 
 def interactive_mode():
     """Interactive mode for the tool"""
+    console.print(
+        "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
+        "[bright_green]     |Q|u|a|s|a|r| |C|y|b|e|r|T|e|c|h|\n"
+        "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+"
+    )
     console.print(Panel.fit(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
         "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]",
-        border_style="magenta"
+        border_style="bright_green"
     ))
     
     output_dir = 'output'
     create_directory(output_dir)
     
-    console.print("[bold cyan]Choose an option:")
+    console.print("[bold blue]Choose an option:")
     console.print("[1] Test a single URL")
     console.print("[2] Test multiple URLs")
     
-    choice = input(f"{Fore.GREEN}Enter your choice (1/2): {Style.RESET_ALL}")
+    choice = input(f"{Fore.CYAN}Enter your choice (1/2): {Style.RESET_ALL}")
     
     if choice == '1':
-        url = input(f"{Fore.GREEN}Enter URL to test: {Style.RESET_ALL}")
+        url = input(f"{Fore.CYAN}Enter URL to test: {Style.RESET_ALL}")
         process_url(url, output_dir)
 
     elif choice == '2':
