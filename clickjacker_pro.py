@@ -77,7 +77,7 @@ def generate_poc_html(url, output_dir):
 <head>
     <meta charset="UTF-8">
     <title>Clickjacking Test</title>
-    <link rel="icon" href="/Quasar.png">
+    <link rel="icon" href="https://drive.google.com/file/d/1ngUK9EbvK_DGSiFBvQm1nqmTWzxPFAO1/view?usp=drive_link">
     <style>
         body {{
             margin: 0;
@@ -263,11 +263,11 @@ def main():
         "[bright_green]     |Q|u|a|s|a|r| |C|y|b|e|r|T|e|c|h|\n"
         "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+"
     )
-    console.print(Panel.fit(
+    console.print(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
-        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]",
-        border_style="bright_green"
-    ))
+        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]"
+        
+    )
     
     parser = argparse.ArgumentParser(description="Clickjacking Detection & Exploitation Tool")
     group = parser.add_mutually_exclusive_group(required=True)
@@ -325,11 +325,10 @@ def interactive_mode():
         "[bright_green]     |Q|u|a|s|a|r| |C|y|b|e|r|T|e|c|h|\n"
         "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+"
     )
-    console.print(Panel.fit(
+    console.print(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
-        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]",
-        border_style="bright_green"
-    ))
+        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]"
+    )
     
     output_dir = 'output'
     create_directory(output_dir)
