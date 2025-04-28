@@ -67,133 +67,199 @@ def check_clickjacking(url):
         }
 
 def generate_poc_html(url, output_dir):
-    """Generate HTML PoC file with iframe"""
-    domain = urlparse(url).netloc
-    filename = f"{output_dir}/{domain}_clickjacking_poc.html"
-    
+    """Generate polished split-view Clickjacking PoC HTML."""
+    from urllib.parse import urlparse
+    url = urlparse(url).netloc
+    filename = f"{output_dir}/{url}_clickjacking_poc.html"
+
     html_content = f"""
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Clickjacking Test</title>
-    <link rel="icon" href="https://drive.google.com/file/d/1ngUK9EbvK_DGSiFBvQm1nqmTWzxPFAO1/view?usp=drive_link">
+    <title>Clickjacking PoC - {url}</title>
+    <link rel="icon" href="/Quasar.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {{
+        /* Basic reset */
+        * {{
             margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #3d0b1c;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+
+        html, body {{
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* No scrolling */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #480020;
             color: #f3d5b5;
         }}
-        .header {{
-            padding: 20px;
-            text-align: center;
-        }}
-        .header h1 {{
-            font-size: 2em;
-        }}
+
         .container {{
-            max-width: 1000px;
-            margin: auto;
-            background: #500c20;
-            padding: 20px;
-            border-radius: 10px;
-        }}
-        .url-box {{
-            margin-bottom: 20px;
             display: flex;
+            height: 100%;
         }}
-        .url-box input {{
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px 0 0 5px;
-        }}
-        .url-box button {{
-            background-color: #2979ff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-        }}
-        .info {{
-            background-color: #fff0f0;
-            padding: 15px;
-            border-radius: 10px;
-            color: #000;
-            margin-bottom: 20px;
-        }}
-        .alert {{
-            background-color: #d32f2f;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: bold;
-        }}
-        .iframe-wrapper {{
-            position: relative;
-            width: 100%;
-            height: 600px;
-            border: 2px solid #900;
-            border-radius: 10px;
+
+        .left-panel {{
+            flex: 2;
+            background-color: #480020;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
             overflow: hidden;
         }}
+
+        .iframe-wrapper {{
+            position: relative;
+            width: 80%;
+            height: 95%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }}
+
         iframe {{
             width: 100%;
             height: 100%;
             border: none;
             opacity: 0.95;
         }}
+
         .overlay {{
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 0, 0.4);
-            color: #000;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 8px;
             font-weight: bold;
-            z-index: 10;
+            color: #000;
+            font-size: 1.5rem;
             pointer-events: none;
             display: none;
+            z-index: 10;
         }}
-        .toggle-btn {{
-            margin: 10px auto 20px;
-            display: block;
+
+        .right-panel {{
+            flex: 1;
+            background-color: #480020;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            margin-right: 80px;
+        }}
+
+        h1 {{
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+        }}
+
+        .url-box {{
+            width: 100%;
+            display: flex;
+            margin-bottom: 20px;
+        }}
+
+        .url-box input {{
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            color: #333;
+        }}
+
+        .url-box button {{
+            background-color: #2979ff;
+            border: none;
+            color: white;
             padding: 10px 20px;
+            border-radius: 0 8px 8px 0;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+        }}
+
+        .info {{
+            width: 100%;
+            background-color: #fff0f0;
+            color: #000;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 0.95rem;
+        }}
+
+        .alert {{
+            width: 100%;
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }}
+
+        .toggle-btn {{
             background-color: #2196f3;
             color: white;
+            padding: 12px 24px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }}
+
+        .toggle-btn:hover {{
+            background-color: #1976d2;
+        }}
+
+        footer {{
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #bbb;
         }}
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Clickjacking Test</h1>
-    </div>
     <div class="container">
-        <div class="url-box">
-            <input type="text" value="{url}" readonly>
-            <button>Test</button>
+        <div class="left-panel">
+            <div class="iframe-wrapper">
+                <div class="overlay" id="overlay">Click Me!</div>
+                <iframe src="https://{url}" sandbox="allow-forms allow-scripts"></iframe>
+            </div>
         </div>
-        <div class="info">
-            <strong>Site:</strong> {url}<br>
-            <strong>IP Address:</strong> Auto-Detected<br>
-            <strong>Time:</strong> Auto-Generated<br>
-            <strong>Missing Headers:</strong> <span style="color: red;">X-Frame-Options, CSP frame-ancestors</span>
-        </div>
-        <div class="alert">Site is vulnerable to Clickjacking</div>
-        <button class="toggle-btn" onclick="toggleOverlay()">Toggle Overlay</button>
-        <div class="iframe-wrapper">
-            <div class="overlay" id="overlay">Click Me!</div>
-            <iframe src="{url}"></iframe>
+        <div class="right-panel">
+            <img src="https://quasarcybertech.com/wp-content/uploads/2024/06/fulllogo_transparent_nobuffer.png" alt="Quasar CyberTech Logo" style="width: 75%; max-width: 130px; margin-bottom: 20px;">
+            <h1>Clickjacking Test</h1>
+            <div class="url-box">
+                <input type="text" value="https://{url}" readonly>
+                <button disabled>Tested</button>
+            </div>
+            <div class="info">
+                <strong>Site:</strong> https://{url}<br>
+                <strong>IP Address:</strong> Auto-Detected<br>
+                <strong>Time:</strong> Auto-Generated
+            </div>
+            <div class="alert">
+                🚨 Vulnerable to Clickjacking
+            </div>
+            <button class="toggle-btn" onclick="toggleOverlay()">Toggle Overlay</button>
+            <footer>PoC generated by Quasar CyberTech</footer>
         </div>
     </div>
+
     <script>
         function toggleOverlay() {{
             const overlay = document.getElementById('overlay');
@@ -203,8 +269,8 @@ def generate_poc_html(url, output_dir):
 </body>
 </html>
     """
-    
-    with open(filename, 'w') as f:
+
+    with open(filename, 'w', encoding="utf-8") as f:
         f.write(html_content)
     
     return filename
