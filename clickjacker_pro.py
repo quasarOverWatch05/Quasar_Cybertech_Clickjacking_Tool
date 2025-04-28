@@ -1,11 +1,9 @@
 import os
 import sys
-import time
 import argparse
 import requests
 from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor
-from playwright.sync_api import sync_playwright
 from colorama import init, Fore, Style
 from rich.console import Console
 from rich.panel import Panel

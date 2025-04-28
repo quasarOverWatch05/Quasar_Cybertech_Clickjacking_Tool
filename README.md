@@ -27,7 +27,6 @@ A powerful, developer-friendly Python-based CLI utility that scans websites for 
 
 - Python 3.7+
 - [Firefox](https://www.mozilla.org/en-US/firefox/new/)
-- [GeckoDriver](https://github.com/mozilla/geckodriver/releases) in your system PATH
 
 ### Clone The Repository
 
@@ -49,7 +48,6 @@ source venv/bin/activate
 
 ```bash
 pip3 install -r requirements.txt
-python -m playwright install firefox
 
 ```
 ### Run the script 
@@ -66,5 +64,11 @@ For multiple URLs(use the url.txt file provided in the repository)
 
 ```bash
 python3 clickjacker_pro.py -f url.txt
+
+```
+For Interactive mode
+
+```bash 
+python3 clickjacker_pro.py
 
 ```
