@@ -12,12 +12,11 @@ A powerful, developer-friendly Python-based CLI utility that scans websites for 
 
 ## 🚀 Features
 
-- ✅ Detects missing or misconfigured `X-Frame-Options` and `Content-Security-Policy`
-- ✅ Parses and inspects `<iframe>` elements for suspicious embeds
-- 📸 Captures **headless screenshots** using Firefox + Selenium
-- 🧪 Supports **single or batch scanning** (via `--list urls.txt`)
-- 📝 Outputs results in **HTML & Screenshot**
-- 💬 Beautiful CLI interface with colorized and structured results
+- ✅ Detects missing or misconfigured `X-Frame-Options` and `Content-Security-Policy`.
+- ✅ Parses and inspects `<iframe>` elements for suspicious embeds.
+- 🧪 Supports **single or batch scanning** (via `--file url.txt`)
+- 📝 Outputs results in **HTML**.
+- 💬 Beautiful CLI interface with colorized and structured results.
 
 ---
 
@@ -50,7 +49,10 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 
 ```
-### Run the script 
+
+---
+
+## Run the script 
 
 For single URL
 
