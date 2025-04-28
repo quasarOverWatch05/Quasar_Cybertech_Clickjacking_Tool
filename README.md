@@ -31,7 +31,7 @@ A powerful, developer-friendly Python-based CLI utility that scans websites for 
 
 ```bash
 git clone "https://github.com/quasarOverWatch05/Quasar_Cybertech_Clickjacking_Tool"
-cd quasar-clickjacker-cli
+cd Quasar_Cybertech_Clickjacking_Tool
 
 ```
 
