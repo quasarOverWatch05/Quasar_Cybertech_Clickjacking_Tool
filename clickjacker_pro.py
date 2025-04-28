@@ -264,8 +264,8 @@ def main():
         "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n\n"
     )
     console.print(
-        "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
-        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]\n\n"
+        "[bright_green]     Clickjacking Detection & Exploitation Tool[/bright_green]\n"
+        "[bright_green]     Developed and Maintained by Quasar CyberTech Research Team[/bright_green]\n\n"
         
     )
     
@@ -326,8 +326,8 @@ def interactive_mode():
         "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n\n"
     )
     console.print(
-        "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
-        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]\n\n"
+        "[bright_green]     Clickjacking Detection & Exploitation Tool[/bright_green]\n"
+        "[bright_green]     Developed and Maintained by Quasar CyberTech Research Team[/bright_green]\n\n"
     )
     
     output_dir = 'output'
