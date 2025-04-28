@@ -1,3 +1,4 @@
+# Quasar CyberTech
 import os
 import sys
 import argparse
@@ -257,15 +258,15 @@ def process_url(url, output_dir):
 
 def main():
     """Main function"""
-    console.print(Panel(
-        "[bold magenta]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
-        "[bold magenta]     |Q|u|a|s|a|r| |C|y|b|e|r|T|e|c|h|\n"
-        "[bold magenta]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
-    ))
+    console.print(
+        "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+\n"
+        "[bright_green]     |Q|u|a|s|a|r| |C|y|b|e|r|T|e|c|h|\n"
+        "[bright_green]     +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+"
+    )
     console.print(Panel.fit(
         "[bold cyan]Clickjacking Detection & Exploitation Tool[/bold cyan]\n"
-        "[red]Developed and Maintained by Quasar CyberTech Research Team[/red]",
-        border_style="magenta"
+        "[yellow]Developed and Maintained by Quasar CyberTech Research Team[/yellow]",
+        border_style="bright_green"
     ))
     
     parser = argparse.ArgumentParser(description="Clickjacking Detection & Exploitation Tool")
