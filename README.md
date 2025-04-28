@@ -1,4 +1,4 @@
-# Quasar Clickjacker CLI – Advanced Clickjacking Detection Tool
+# Quasar CyberTech Clickjacking Tool
 <!-- Quasar CyberTech -->
 <div align="center">
 <img src="https://quasarcybertech.com/wp-content/uploads/2024/06/fulllogo_transparent_nobuffer.png" alt="Quasar CyberTech Logo" width="300"/>
