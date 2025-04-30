@@ -293,9 +293,9 @@ def process_url(url, output_dir):
             f"[bold red]Error testing {url}: {result.get('error', 'Unknown error')}",
             title="Error",
             border_style="red",
-            box="ROUNDED"
+            box=ROUNDED
         ))
-        return
+        return result  # Return the result even in case of error
     
     if result['vulnerable']:
         console.print(Panel(
@@ -321,6 +321,8 @@ def process_url(url, output_dir):
             title="Site Protected Against Clickjacking",
             border_style="green"
         ))
+    
+    return result  # Return the result for summary table
 
 def main():
     """Main function"""
@@ -361,7 +363,7 @@ def main():
             console.print(f"[bold blue]Testing {len(urls)} URLs for clickjacking vulnerabilities...")
             
             # Create a table for results summary
-            table = Table(title="Clickjacking Test Results")
+            table = Table(title="[bold bright_green]Clickjacking Test Results", style="bright_green")
             table.add_column("URL", style="cyan")
             table.add_column("Status", style="green")
             table.add_column("Vulnerable", style="red")
@@ -410,7 +412,6 @@ def interactive_mode():
         process_url(url, output_dir)
 
     elif choice == '2':
-        urls = []
         file_name = input(f"{Fore.CYAN}Enter the file name containing URLs: {Style.RESET_ALL}")
         try:
             with open(file_name, 'r') as f:
@@ -423,27 +424,21 @@ def interactive_mode():
             console.print(f"[bold blue]Loaded {len(urls)} URLs from '{file_name}'.")
 
             # Create a table for results summary
-            table = Table(title="Clickjacking Test Results (Interactive Mode)")
+            table = Table(title="[bold bright_green]Clickjacking Test Results (Interactive Mode)", style="bright_green")
             table.add_column("URL", style="cyan")
             table.add_column("Status", style="green")
             table.add_column("Vulnerable", style="red")
 
-            # Process URLs in parallel
-            with ThreadPoolExecutor(max_workers=5) as executor:
-                futures = []
-                for url in urls:
-                    futures.append(executor.submit(process_url, url, output_dir))
+            # Process URLs sequentially and collect results
+            for url in urls:
+                result = process_url(url, output_dir)
+                if result:
+                    status = str(result['status_code'])
+                    vulnerable = "YES" if result.get('vulnerable', False) else "NO"
+                    table.add_row(url, status, vulnerable)
+                else:
+                    table.add_row(url, "Error", "N/A")
 
-                for i, future in enumerate(futures):
-                    try:
-                        # Assuming process_url also internally calls check_clickjacking
-                        url = urls[i]
-                        result = check_clickjacking(check_url_format(url))
-                        status = str(result['status_code'])
-                        vulnerable = "YES" if result.get('vulnerable', False) else "NO"
-                        table.add_row(url, status, vulnerable)
-                    except Exception as e:
-                        console.print(f"[bold red]Error processing {urls[i]}: {str(e)}")
             console.print(table)
 
         except FileNotFoundError:
